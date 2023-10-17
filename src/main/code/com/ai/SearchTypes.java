@@ -1,0 +1,11 @@
+package com.ai;
+
+public enum SearchTypes {
+
+    BREADTH_FIRST_SEARCH,
+    DEPTH_FIRST_SEARCH,
+    ITERATIVE_DEEPENING_SEARCH,
+    UNIFORM_COST_SEARCH,
+    GREEDY_SEARCH,
+    A_STAR_SEARCH
+}
