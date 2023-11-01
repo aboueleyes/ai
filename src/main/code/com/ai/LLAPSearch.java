@@ -1,25 +1,29 @@
 package com.ai;
 
-import com.ai.searchalgorithms.DepthFirstSearchAlgorithm;
-import com.ai.searchalgorithms.SearchAlgorithm;
+import com.ai.actions.Action;
+import com.ai.search_queues.BFSQueue;
+import com.ai.search_queues.SearchQueue;
 
-public class LLAPSearch {
-    private static Parser parser;
-    public LLAPSearch() {
-        parser = new Parser();
+import java.util.List;
+
+public class LLAPSearch extends GenericSearch{
+    private static Parser parser = new Parser();
+    public LLAPSearch() throws Exception {
+        super();
+        throw new Exception("Static Class!");
     }
 
     public static String solve(String initialState, String strategy, boolean visualize) {
         State state = parser.parseState(initialState);
-        ResourcesMetrics resourcesMetrics = parser.parseResourcesMetrics(initialState);
-        SearchAlgorithm searchAlgorithm = getSearchAlgorithm(strategy);
-        return searchAlgorithm.search(state, resourcesMetrics, visualize);
+        List<Action> actions = parser.parseActionsList(initialState);
+        SearchQueue searchQueue = getSearchQueue(strategy);
+        return generalSearch(state,actions, searchQueue);
     }
 
-    public static SearchAlgorithm getSearchAlgorithm(String strategy) {
+    public static SearchQueue getSearchQueue(String strategy) {
         switch (strategy) {
             case "BF":
-                return new DepthFirstSearchAlgorithm();
+                return new BFSQueue();
         }
         return null;
     }

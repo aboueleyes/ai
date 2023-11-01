@@ -1,5 +1,10 @@
 package com.ai;
 
+import com.ai.actions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Parser {
     public State parseState(String input) {
         String[] parts = input.split("[;,]");
@@ -9,7 +14,7 @@ public class Parser {
                 initialResources[2], 0);
     }
 
-    public ResourcesMetrics parseResourcesMetrics(String input) {
+    public List<Action> parseActionsList(String input) {
         String[] parts = input.split("[;,]");
         int unitPriceFood = Integer.parseInt(parts[4]);
         int unitPriceMaterials = Integer.parseInt(parts[5]);
@@ -30,11 +35,13 @@ public class Parser {
         int materialsUseBUILD2 = Integer.parseInt(parts[20]);
         int energyUseBUILD2 = Integer.parseInt(parts[21]);
         int prosperityBUILD2 = Integer.parseInt(parts[22]);
-        return new ResourcesMetrics(unitPriceFood, unitPriceMaterials, unitPriceEnergy, amountRequestFood,
-                delayRequestFood, amountRequestMaterials, delayRequestMaterials, amountRequestEnergy,
-                delayRequestEnergy, priceBUILD1, foodUseBUILD1, materialsUseBUILD1, energyUseBUILD1,
-                prosperityBUILD1, priceBUILD2, foodUseBUILD2, materialsUseBUILD2, energyUseBUILD2,
-                prosperityBUILD2);
+        Action requestFoodAction = new RequestFoodAction(unitPriceFood, unitPriceMaterials, unitPriceEnergy, delayRequestFood, amountRequestFood);
+        Action requestMaterialsAction = new RequestMaterialsAction(unitPriceFood, unitPriceMaterials, unitPriceEnergy, delayRequestMaterials, amountRequestMaterials);
+        Action requestEnergyAction = new RequestEnergyAction(unitPriceFood, unitPriceMaterials, unitPriceEnergy, delayRequestEnergy, amountRequestEnergy);
+        Action wait = new WaitAction(unitPriceFood, unitPriceMaterials, unitPriceEnergy);
+        Action build1 = new BuildAction("BUILD1",unitPriceFood, unitPriceMaterials, unitPriceEnergy, priceBUILD1, foodUseBUILD1, materialsUseBUILD1, energyUseBUILD1, prosperityBUILD1);
+        Action build2 = new BuildAction("BUILD2",unitPriceFood, unitPriceMaterials, unitPriceEnergy, priceBUILD2, foodUseBUILD2, materialsUseBUILD2, energyUseBUILD2, prosperityBUILD2);
+        return List.of(requestFoodAction, requestMaterialsAction, requestEnergyAction, wait, build1, build2);
     }
 
 }
