@@ -1,5 +1,7 @@
 package com.ai;
 
+import java.util.Objects;
+
 public class State {
 
     private int prosperity;
@@ -54,5 +56,18 @@ public class State {
 
     public void setMoneySpent(int moneySpent) {
         this.moneySpent = moneySpent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return prosperity == state.prosperity && food == state.food && materials == state.materials && energy == state.energy && moneySpent == state.moneySpent;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(prosperity, food, materials, energy, moneySpent);
     }
 }
