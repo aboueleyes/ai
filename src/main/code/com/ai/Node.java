@@ -40,6 +40,11 @@ public class Node {
         }
     }
 
+    public Node(State state){
+        this.state = state;
+        resetNode();
+    }
+
     private void resetNode(){
         this.delay = 0;
         this.foodToGetAfterDelay = 0;
