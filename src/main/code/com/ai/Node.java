@@ -10,7 +10,9 @@ public class Node {
     private int materialsToGetAfterDelay;
     private int energyToGetAfterDelay;
 
-    public Node(State state, int delay, int foodToGetAfterDelay, int materialsToGetAfterDelay, int energyToGetAfterDelay) {
+    private ActionTypes leadingActionType;
+
+    public Node(State state, int delay, int foodToGetAfterDelay, int materialsToGetAfterDelay, int energyToGetAfterDelay, ActionTypes leadingActionType) {
         this.state = state;
         if(delay==0){
             collectGains();
@@ -22,9 +24,10 @@ public class Node {
             this.materialsToGetAfterDelay = materialsToGetAfterDelay;
             this.energyToGetAfterDelay = energyToGetAfterDelay;
         }
+        this.leadingActionType = leadingActionType;
     }
 
-    public Node(State state, Node previous){
+    public Node(State state, Node previous, ActionTypes leadingActionType){
         this.state = state;
         if(previous.delay>1){
             this.delay = previous.delay - 1;
@@ -38,6 +41,7 @@ public class Node {
             }
             resetNode();
         }
+        this.leadingActionType = leadingActionType;
     }
 
     public Node(State state){
@@ -98,38 +102,46 @@ public class Node {
         this.energyToGetAfterDelay = energyToGetAfterDelay;
     }
 
+    public ActionTypes getLeadingActionType() {
+        return leadingActionType;
+    }
+
+    public void setLeadingActionType(ActionTypes leadingActionType) {
+        this.leadingActionType = leadingActionType;
+    }
+
     public ArrayList<Node> getChildren(ResourcesMetrics resourcesMetrics){
         ArrayList<Node> children = new ArrayList<>();
 
         State nextStateFromWait = Actions.WAIT(this.state, resourcesMetrics);
         if(!nextStateFromWait.equals(this.state)){
-            children.add(new Node(nextStateFromWait, this));
+            children.add(new Node(nextStateFromWait, this, ActionTypes.WAIT));
         }
 
         State nextStateFromBuild1 = Actions.BUILD1(this.state, resourcesMetrics);
         if(!nextStateFromBuild1.equals(this.state)){
-            children.add(new Node(nextStateFromBuild1, this));
+            children.add(new Node(nextStateFromBuild1, this, ActionTypes.BUILD1));
         }
 
         State nextStateFromBuild2 = Actions.BUILD2(this.state, resourcesMetrics);
         if(!nextStateFromBuild2.equals(this.state)){
-            children.add(new Node(nextStateFromBuild2, this));
+            children.add(new Node(nextStateFromBuild2, this, ActionTypes.BUILD2));
         }
 
         if(this.delay == 0){
             State nextStateFromRequestFood = Actions.RequestFood(this.state, resourcesMetrics);
             if(!nextStateFromRequestFood.equals(this.state)){
-                children.add(new Node(nextStateFromRequestFood, resourcesMetrics.getDelayRequestFood(), resourcesMetrics.getAmountRequestFood(),0,0));
+                children.add(new Node(nextStateFromRequestFood, resourcesMetrics.getDelayRequestFood(), resourcesMetrics.getAmountRequestFood(),0,0, ActionTypes.RequestFood));
             }
 
             State nextStateFromRequestMaterials = Actions.RequestMaterials(this.state, resourcesMetrics);
             if(!nextStateFromRequestMaterials.equals(this.state)){
-                children.add(new Node(nextStateFromRequestMaterials, resourcesMetrics.getDelayRequestMaterials(), 0, resourcesMetrics.getAmountRequestMaterials(), 0));
+                children.add(new Node(nextStateFromRequestMaterials, resourcesMetrics.getDelayRequestMaterials(), 0, resourcesMetrics.getAmountRequestMaterials(), 0, ActionTypes.RequestMaterials));
             }
 
             State nextStateFromRequestEnergy = Actions.RequestEnergy(this.state, resourcesMetrics);
             if(!nextStateFromRequestEnergy.equals(this.state)){
-                children.add(new Node(nextStateFromRequestEnergy, resourcesMetrics.getDelayRequestEnergy(), 0,0, resourcesMetrics.getAmountRequestEnergy()));
+                children.add(new Node(nextStateFromRequestEnergy, resourcesMetrics.getDelayRequestEnergy(), 0,0, resourcesMetrics.getAmountRequestEnergy(), ActionTypes.RequestEnergy));
             }
         }
 
