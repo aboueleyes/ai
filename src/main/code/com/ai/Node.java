@@ -3,6 +3,7 @@ package com.ai;
 import com.ai.actions.Action;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Node {
 
@@ -58,12 +59,16 @@ public class Node {
         return leadingActionType;
     }
 
-    public ArrayList<Node> expand(Action[] actions){
-        ArrayList<Node> children = new ArrayList<>();
-
-
-
-        return children;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return delay == node.delay && foodToGetAfterDelay == node.foodToGetAfterDelay && materialsToGetAfterDelay == node.materialsToGetAfterDelay && energyToGetAfterDelay == node.energyToGetAfterDelay && state.equals(node.state) && Objects.equals(leadingActionType, node.leadingActionType);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(state, delay, foodToGetAfterDelay, materialsToGetAfterDelay, energyToGetAfterDelay, leadingActionType);
+    }
 }

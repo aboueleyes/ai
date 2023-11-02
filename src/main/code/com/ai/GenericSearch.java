@@ -3,21 +3,24 @@ package com.ai;
 import com.ai.actions.Action;
 import com.ai.search_queues.SearchQueue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class GenericSearch {
 
     public static String generalSearch(State initialState,List<Action> actions, SearchQueue searchQueue){
         HashMap<Node,Node> parentMap = new HashMap<>();
+        HashSet<Node> visited = new HashSet<>();
         Node initialNode = new Node(initialState,0,0,0,0,"");
         searchQueue.insert(initialNode);
 
         int expandedNodes =0;
         while (!searchQueue.isEmpty()){
             Node currentNode = searchQueue.removeFront();
+            if(visited.contains(currentNode)){
+                continue;
+            }
+
+            visited.add(currentNode);
 
             expandedNodes++;
 
