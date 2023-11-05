@@ -18,9 +18,9 @@ public class Node {
     public Node(State state, int delay, int foodToGetAfterDelay, int materialsToGetAfterDelay, int energyToGetAfterDelay, String leadingActionType) {
         this.state = state;
         if(delay==0){
-            this.state.setFood(this.state.getFood() + foodToGetAfterDelay);
-            this.state.setMaterials(this.state.getMaterials() + materialsToGetAfterDelay);
-            this.state.setEnergy(this.state.getEnergy() + energyToGetAfterDelay);
+            this.state.setFood(Math.min(this.state.getFood() + foodToGetAfterDelay, 50));
+            this.state.setMaterials(Math.min(this.state.getMaterials() + materialsToGetAfterDelay,50));
+            this.state.setEnergy(Math.min(this.state.getEnergy() + energyToGetAfterDelay,50));
             this.delay = 0;
             this.foodToGetAfterDelay = 0;
             this.materialsToGetAfterDelay = 0;

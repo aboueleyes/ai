@@ -2,6 +2,7 @@ package com.ai;
 
 import com.ai.actions.Action;
 import com.ai.search_queues.BFSQueue;
+import com.ai.search_queues.DFSQueue;
 import com.ai.search_queues.SearchQueue;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class LLAPSearch extends GenericSearch{
         switch (strategy) {
             case "BF":
                 return new BFSQueue();
+                case "DF":
+                return new DFSQueue();
         }
         return null;
     }

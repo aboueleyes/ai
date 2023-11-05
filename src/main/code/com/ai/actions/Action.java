@@ -35,7 +35,7 @@ public abstract class Action {
         int nextMaterials = state.getMaterials() - materialsUsed;
         int nextEnergy = state.getEnergy() - energyUsed;
 
-        if(nextFood<0 || nextMaterials<0 || nextEnergy<0){
+        if(nextFood<0 || nextMaterials<0 || nextEnergy<0 || nextMoneySpent>100000){
             return state;
         }
 

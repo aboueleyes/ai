@@ -33,9 +33,9 @@ public class BuildAction extends Action {
         }
 
         if(node.getDelay() == 1){
-            nextState.setFood(nextState.getFood() + node.getFoodToGetAfterDelay());
-            nextState.setMaterials(nextState.getMaterials() + node.getMaterialsToGetAfterDelay());
-            nextState.setEnergy(nextState.getEnergy() + node.getEnergyToGetAfterDelay());
+            nextState.setFood(Math.min(50,nextState.getFood() + node.getFoodToGetAfterDelay()));
+            nextState.setMaterials(Math.min(50,nextState.getMaterials() + node.getMaterialsToGetAfterDelay()));
+            nextState.setEnergy(Math.min(50,nextState.getEnergy() + node.getEnergyToGetAfterDelay()));
             return new Node(nextState, 0, 0, 0,0, this.getName());
         }
 
