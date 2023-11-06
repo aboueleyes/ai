@@ -1,8 +1,5 @@
-package com.ai;
+package code;
 
-import com.ai.actions.Action;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Node {
@@ -12,6 +9,7 @@ public class Node {
     private final int foodToGetAfterDelay;
     private final int materialsToGetAfterDelay;
     private final int energyToGetAfterDelay;
+    private int depth;
 
     private String leadingActionType;
 
@@ -33,6 +31,7 @@ public class Node {
             this.energyToGetAfterDelay = energyToGetAfterDelay;
         }
         this.leadingActionType = leadingActionType;
+        this.depth = 0;
     }
 
     public State getState() {
@@ -57,6 +56,14 @@ public class Node {
 
     public String getLeadingActionType() {
         return leadingActionType;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth) {
+    	this.depth = depth;
     }
 
     @Override

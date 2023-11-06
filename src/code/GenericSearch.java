@@ -1,36 +1,46 @@
-package com.ai;
+package code;
 
-import com.ai.actions.Action;
-import com.ai.search_queues.SearchQueue;
+import code.actions.Action;
+import code.search_queues.SearchQueue;
 
 import java.util.*;
 
 public abstract class GenericSearch {
 
-    public static String generalSearch(State initialState,List<Action> actions, SearchQueue searchQueue){
-        HashMap<Node,Node> parentMap = new HashMap<>();
-        HashSet<Node> visited = new HashSet<>();
-        Node initialNode = new Node(initialState,0,0,0,0,"");
-        searchQueue.insert(initialNode);
+    public static String generalSearch(State initialState,List<Action> actions, SearchQueue searchQueue, boolean cutOff){
+        int iterations = cutOff ? Integer.MAX_VALUE : 1;
+        for (int i = 0; i < iterations; i++) {
+            HashMap<Node, Node> parentMap = new HashMap<>();
+            HashSet<Node> visited = new HashSet<>();
+            Node initialNode = new Node(initialState, 0, 0, 0, 0, "");
+            searchQueue.insert(initialNode);
 
-        int expandedNodes =0;
-        while (!searchQueue.isEmpty()){
-            Node currentNode = searchQueue.removeFront();
-            if(visited.contains(currentNode)){
-                continue;
-            }
+            int expandedNodes = 0;
+            while (!searchQueue.isEmpty()) {
+                Node currentNode = searchQueue.removeFront();
+                if (visited.contains(currentNode)) {
+                    continue;
+                }
 
-            visited.add(currentNode);
+                visited.add(currentNode);
 
-            expandedNodes++;
+                expandedNodes++;
 
-            if(goalTest(currentNode)){
-                return getPath(initialNode, currentNode, parentMap) + ";" + currentNode.getState().getMoneySpent() + ";" + expandedNodes;
-            }
-            List<Node> nodes = expandNode(currentNode, actions);
-            for(Node node: nodes){
-                searchQueue.insert(node);
-                parentMap.put(node,currentNode);
+                if (goalTest(currentNode)) {
+                    return getPath(initialNode, currentNode, parentMap) + ";" + currentNode.getState().getMoneySpent() + ";" + expandedNodes;
+                }
+                List<Node> nodes = expandNode(currentNode, actions);
+                for (Node node : nodes) {
+                    if (cutOff) {
+                        if (node.getDepth() <= i) {
+                            searchQueue.insert(node);
+                            parentMap.put(node, currentNode);
+                        }
+                    } else {
+                        searchQueue.insert(node);
+                        parentMap.put(node, currentNode);
+                    }
+                }
             }
         }
         return "NOSOLUTION";
@@ -44,6 +54,7 @@ public abstract class GenericSearch {
         return actions.stream()
                 .map(operator -> operator.apply(node))
                 .filter(Objects::nonNull)
+                .peek(newNode -> newNode.setDepth(node.getDepth() + 1))
                 .toList();
     }
 
