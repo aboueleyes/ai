@@ -1,8 +1,7 @@
-package com.ai;
+package code;
 
-import com.ai.actions.*;
+import code.actions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {

@@ -1,4 +1,4 @@
-package com.ai;
+package code;
 
 public enum SearchTypes {
 

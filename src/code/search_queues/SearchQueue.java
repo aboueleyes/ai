@@ -1,6 +1,6 @@
-package com.ai.search_queues;
+package code.search_queues;
 
-import com.ai.Node;
+import code.Node;
 
 public interface SearchQueue {
     public Node removeFront();

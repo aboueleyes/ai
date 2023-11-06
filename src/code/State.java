@@ -1,4 +1,4 @@
-package com.ai;
+package code;
 
 import java.util.Objects;
 

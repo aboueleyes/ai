@@ -1,7 +1,7 @@
-package com.ai.actions;
+package code.actions;
 
-import com.ai.Node;
-import com.ai.State;
+import code.Node;
+import code.State;
 
 public class RequestMaterialsAction extends Action {
 
