@@ -38,10 +38,6 @@ public class State {
         return moneySpent;
     }
 
-    public void setProsperity(int prosperity) {
-        this.prosperity = prosperity;
-    }
-
     public void setFood(int food) {
         this.food = food;
     }
@@ -54,8 +50,15 @@ public class State {
         this.energy = energy;
     }
 
-    public void setMoneySpent(int moneySpent) {
-        this.moneySpent = moneySpent;
+    @Override
+    public String toString() {
+        return "State{" +
+                "prosperity=" + prosperity +
+                ", food=" + food +
+                ", materials=" + materials +
+                ", energy=" + energy +
+                ", moneySpent=" + moneySpent +
+                '}';
     }
 
     @Override
