@@ -1,7 +1,7 @@
-package com.ai.actions;
+package code.actions;
 
-import com.ai.Node;
-import com.ai.State;
+import code.Node;
+import code.State;
 
 public class BuildAction extends Action {
 
@@ -19,7 +19,6 @@ public class BuildAction extends Action {
         this.energyUsed = energyUsed;
         this.prosperity = prosperity;
     }
-
 
     @Override
     public Node apply(Node node) {

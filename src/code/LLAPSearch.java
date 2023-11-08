@@ -1,13 +1,13 @@
-package com.ai;
+package code;
 
-import com.ai.actions.Action;
-import com.ai.search_queues.BFSQueue;
-import com.ai.search_queues.DFSQueue;
-import com.ai.search_queues.SearchQueue;
+import code.actions.Action;
+import code.search_queues.BFSQueue;
+import code.search_queues.DFSQueue;
+import code.search_queues.SearchQueue;
 
 import java.util.List;
 
-public class LLAPSearch extends GenericSearch{
+public class LLAPSearch extends GenericSearch {
     private static Parser parser = new Parser();
     public LLAPSearch() throws Exception {
         super();
@@ -18,15 +18,17 @@ public class LLAPSearch extends GenericSearch{
         State state = parser.parseState(initialState);
         List<Action> actions = parser.parseActionsList(initialState);
         SearchQueue searchQueue = getSearchQueue(strategy);
-        return generalSearch(state,actions, searchQueue);
+        return generalSearch(state,actions, searchQueue, strategy.equals("ID"));
     }
 
     public static SearchQueue getSearchQueue(String strategy) {
         switch (strategy) {
             case "BF":
                 return new BFSQueue();
-                case "DF":
+            case "DF":
+            case "ID":
                 return new DFSQueue();
+
         }
         return null;
     }
