@@ -9,6 +9,7 @@ public abstract class Action {
     private final int foodPrice;
     private final int materialsPrice;
     private final int energyPrice;
+
     protected Action(String name, int foodPrice, int materialsPrice, int energyPrice) {
         this.name = name;
         this.foodPrice = foodPrice;

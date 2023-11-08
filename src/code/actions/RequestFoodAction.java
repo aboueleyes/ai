@@ -6,9 +6,9 @@ import code.State;
 public class RequestFoodAction extends Action{
 
 
-    private int delay;
+    private final int delay;
 
-    private int amount;
+    private final int amount;
 
     public RequestFoodAction(int foodPrice, int materialsPrice, int energyPrice, int delay, int amount){
         super("RequestFood", foodPrice, materialsPrice, energyPrice);
@@ -22,6 +22,7 @@ public class RequestFoodAction extends Action{
         if(node.getDelay()>0 || nextState.equals(node.getState())){
             return null;
         }
-        return new Node(nextState, this.delay, this.amount, 0,0, this.getName());
+        return new Node(nextState, this.delay, this.amount, 0,0,
+                this.getName(), node);
     }
 }
