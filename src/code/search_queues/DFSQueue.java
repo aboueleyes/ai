@@ -6,7 +6,11 @@ import java.util.Stack;
 
 public class DFSQueue implements SearchQueue{
 
-    Stack<Node> stack = new Stack<>();
+    private final Stack<Node> stack;
+
+    public DFSQueue() {
+        this.stack = new Stack<>();
+    }
 
     @Override
     public Node removeFront() {
