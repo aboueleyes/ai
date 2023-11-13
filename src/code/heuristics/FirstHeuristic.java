@@ -14,12 +14,16 @@ public class FirstHeuristic implements Heuristic {
     }
 
     @Override
-    public int apply(Node node) {
-        int remainingProsperity = Math.max((100 - node.getState().getProsperity()), 0);
-        return buildActions.stream().map((buildAction) -> {
+    public double apply(Node node) {
+        double min = Double.MAX_VALUE;
+        int sum = 0;
+        for (BuildAction buildAction : buildActions) {
             int price = buildAction.getPrice();
             int prosperityAdded = buildAction.getProsperity();
-            return (int) Math.ceil((double) remainingProsperity / prosperityAdded) * price;
-        }).min(Integer::compare).orElse(0);
+            sum += price;
+            double value = (double) (100 - node.getState().getProsperity()) / prosperityAdded * price;
+            min = Math.min(min, value);
+        }
+        return min;
     }
 }

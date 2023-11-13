@@ -4,5 +4,5 @@ import code.Node;
 
 public interface Heuristic {
 
-    int apply(Node node);
+    double apply(Node node);
 }
