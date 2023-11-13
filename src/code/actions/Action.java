@@ -9,6 +9,7 @@ public abstract class Action {
     private final int foodPrice;
     private final int materialsPrice;
     private final int energyPrice;
+
     protected Action(String name, int foodPrice, int materialsPrice, int energyPrice) {
         this.name = name;
         this.foodPrice = foodPrice;
@@ -47,5 +48,17 @@ public abstract class Action {
     }
 
     public abstract Node apply(Node node);
+
+    public int getFoodPrice() {
+        return foodPrice;
+    }
+
+    public int getMaterialsPrice() {
+        return materialsPrice;
+    }
+
+    public int getEnergyPrice() {
+        return energyPrice;
+    }
 
 }

@@ -9,11 +9,11 @@ public class Node {
     private final int foodToGetAfterDelay;
     private final int materialsToGetAfterDelay;
     private final int energyToGetAfterDelay;
-    private int depth;
+    private final int depth;
+    private final String leadingActionType;
+    private final Node parent;
 
-    private String leadingActionType;
-
-    public Node(State state, int delay, int foodToGetAfterDelay, int materialsToGetAfterDelay, int energyToGetAfterDelay, String leadingActionType) {
+    public Node(State state, int delay, int foodToGetAfterDelay, int materialsToGetAfterDelay, int energyToGetAfterDelay, String leadingActionType, Node parent) {
         this.state = state;
         if(delay==0){
             this.state.setFood(Math.min(this.state.getFood() + foodToGetAfterDelay, 50));
@@ -31,7 +31,12 @@ public class Node {
             this.energyToGetAfterDelay = energyToGetAfterDelay;
         }
         this.leadingActionType = leadingActionType;
-        this.depth = 0;
+        this.parent = parent;
+        if (this.parent == null) {
+            this.depth = 0;
+        } else {
+            this.depth = this.parent.depth + 1;
+        }
     }
 
     public State getState() {
@@ -62,8 +67,8 @@ public class Node {
         return depth;
     }
 
-    public void setDepth(int depth) {
-    	this.depth = depth;
+    public Node getParent() {
+        return parent;
     }
 
     @Override
@@ -71,7 +76,11 @@ public class Node {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node node = (Node) o;
-        return delay == node.delay && foodToGetAfterDelay == node.foodToGetAfterDelay && materialsToGetAfterDelay == node.materialsToGetAfterDelay && energyToGetAfterDelay == node.energyToGetAfterDelay && state.equals(node.state) && Objects.equals(leadingActionType, node.leadingActionType);
+        return delay == node.delay
+                && foodToGetAfterDelay == node.foodToGetAfterDelay
+                && materialsToGetAfterDelay == node.materialsToGetAfterDelay
+                && energyToGetAfterDelay == node.energyToGetAfterDelay
+                && state.equals(node.state);
     }
 
     @Override

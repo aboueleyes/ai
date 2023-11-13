@@ -40,7 +40,7 @@ public class Parser {
         Action wait = new WaitAction(unitPriceFood, unitPriceMaterials, unitPriceEnergy);
         Action build1 = new BuildAction("BUILD1",unitPriceFood, unitPriceMaterials, unitPriceEnergy, priceBUILD1, foodUseBUILD1, materialsUseBUILD1, energyUseBUILD1, prosperityBUILD1);
         Action build2 = new BuildAction("BUILD2",unitPriceFood, unitPriceMaterials, unitPriceEnergy, priceBUILD2, foodUseBUILD2, materialsUseBUILD2, energyUseBUILD2, prosperityBUILD2);
-        return List.of(requestFoodAction, requestMaterialsAction, requestEnergyAction, wait, build1, build2);
+        return List.of(requestFoodAction, requestMaterialsAction, requestEnergyAction, wait, build2, build1);
     }
 
 }
