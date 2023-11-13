@@ -4,6 +4,7 @@ import code.actions.Action;
 import code.actions.BuildAction;
 import code.heuristics.FirstHeuristic;
 import code.heuristics.Heuristic;
+import code.heuristics.SecondHeuristic;
 import code.logger.Logger;
 import code.search_queues.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class LLAPSearch extends GenericSearch {
 
-    private static Parser parser = new Parser();
+    private static final Parser parser = new Parser();
 
     public LLAPSearch() throws Exception {
         super();
@@ -31,15 +32,15 @@ public class LLAPSearch extends GenericSearch {
 
     public static SearchQueue getSearchQueue(String strategy, List<BuildAction> buildActions) {
         Heuristic firstHeuristic = new FirstHeuristic(buildActions);
-        Heuristic secondHeuristic = null; // TODO: handle second heuristic
+        Heuristic secondHeuristic = new SecondHeuristic(buildActions);
         return switch (strategy) {
             case "BF" -> new BFSQueue();
             case "DF", "ID" -> new DFSQueue();
             case "UC" -> new UCSQueue();
             case "GR1" -> new GRQueue(firstHeuristic);
-            case "GR2" -> new GRQueue(firstHeuristic);
+            case "GR2" -> new GRQueue(secondHeuristic);
             case "AS1" -> new AStarQueue(firstHeuristic);
-            case "AS2" -> new AStarQueue(firstHeuristic);
+            case "AS2" -> new AStarQueue(secondHeuristic);
             default -> null;
         };
     }

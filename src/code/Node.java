@@ -80,8 +80,7 @@ public class Node {
                 && foodToGetAfterDelay == node.foodToGetAfterDelay
                 && materialsToGetAfterDelay == node.materialsToGetAfterDelay
                 && energyToGetAfterDelay == node.energyToGetAfterDelay
-                && state.equals(node.state)
-                && Objects.equals(leadingActionType, node.leadingActionType);
+                && state.equals(node.state);
     }
 
     @Override

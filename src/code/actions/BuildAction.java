@@ -53,4 +53,16 @@ public class BuildAction extends Action {
     public int getProsperity() {
         return prosperity;
     }
+
+    public int getFoodUsed() {
+        return foodUsed;
+    }
+
+    public int getMaterialsUsed() {
+        return materialsUsed;
+    }
+
+    public int getEnergyUsed() {
+        return energyUsed;
+    }
 }

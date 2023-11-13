@@ -8,8 +8,6 @@ import java.util.*;
 
 public abstract class GenericSearch {
 
-    private static Logger logger = new Logger();
-
     public static String generalSearch(State initialState,List<Action> actions,
                                        SearchQueue searchQueue, boolean cutOff, boolean visualize) {
         int iterations = cutOff ? Integer.MAX_VALUE : 1;
@@ -31,7 +29,7 @@ public abstract class GenericSearch {
                 expandedNodes++;
 
                 if (goalTest(currentNode)) {
-                    if (true) {
+                    if (visualize) {
                         Logger.logTree(currentNode);
                     }
                     return getPlan(currentNode, expandedNodes);
@@ -69,8 +67,11 @@ public abstract class GenericSearch {
             path.insert(0, current.getLeadingActionType() + ",");
             current = current.getParent();
         }
-        path.deleteCharAt(path.length() - 1);
+        if (path.length() > 0) {
+            path.deleteCharAt(path.length() - 1);
+        }
         path.append(";").append(end.getState().getMoneySpent()).append(";").append(expandedNodes);
         return path.toString();
+//        return "";
     }
 }

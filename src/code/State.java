@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class State {
 
-    private int prosperity;
+    private final int prosperity;
     private int food;
     private int materials;
     private int energy;
-    private int moneySpent;
+    private final int moneySpent;
 
     public State(int prosperity, int food, int materials, int energy, int moneySpent) {
         this.prosperity = prosperity;

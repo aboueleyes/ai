@@ -49,4 +49,16 @@ public abstract class Action {
 
     public abstract Node apply(Node node);
 
+    public int getFoodPrice() {
+        return foodPrice;
+    }
+
+    public int getMaterialsPrice() {
+        return materialsPrice;
+    }
+
+    public int getEnergyPrice() {
+        return energyPrice;
+    }
+
 }
