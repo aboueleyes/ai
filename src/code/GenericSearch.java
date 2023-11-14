@@ -29,6 +29,7 @@ public abstract class GenericSearch {
                 expandedNodes++;
 
                 if (goalTest(currentNode)) {
+                    System.out.println("Expanded Nodes: " + expandedNodes);
                     if (visualize) {
                         Logger.logTree(currentNode);
                     }
